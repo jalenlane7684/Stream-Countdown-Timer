@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stream Countdown Timer", "Stream Countdown Timer\Stream Countdown Timer.csproj", "{DD74F0EC-7ECF-49E4-AEE2-29FACC7669E9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DD74F0EC-7ECF-49E4-AEE2-29FACC7669E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD74F0EC-7ECF-49E4-AEE2-29FACC7669E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD74F0EC-7ECF-49E4-AEE2-29FACC7669E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD74F0EC-7ECF-49E4-AEE2-29FACC7669E9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C65A785D-C748-4D79-9F38-AD89BD4B8CB0}
+	EndGlobalSection
+EndGlobal
