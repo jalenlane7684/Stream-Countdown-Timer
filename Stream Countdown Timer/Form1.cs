@@ -103,11 +103,7 @@ namespace Stream_Countdown_Timer
                 }
                 else if ( !startTime.Equals("") )
                 {
-                    if ( startTime.Substring(startTime.Length - 2).Equals("PM") )
-                    {
-                        start = DateTime.Parse(currentTime.Date + " " + startTime + " AM");
-                    }
-                    start = DateTime.Parse(currentTime.Date + " " + startTime + " AM");
+                    
 
                     while ( start != currentTime )
                     {
