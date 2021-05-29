@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using System.IO;
+
 
 namespace Stream_Countdown_Timer
 {
@@ -18,11 +20,13 @@ namespace Stream_Countdown_Timer
         int seconds;
         DateTime currentTime;
         DateTime start;
+        String path;
 
         public StreamCountdownTimer ()
         {
             InitializeComponent();
             t.Enabled = false;
+
         }
 
         private void label1_Click ( object sender, EventArgs e )
@@ -50,55 +54,72 @@ namespace Stream_Countdown_Timer
             currentTime = DateTime.Now;
             String timer = SetTimerText.Text;
             String startTime = SetStartTimeText.Text;
+            path = "C:\\Users\\" + userText.Text + "\\Desktop\\StreamTimer.txt";
 
-            if ( !startTime.Equals("") && !timer.Equals("") )
+            if ( userText.Text.Equals("") )
             {
-                MessageBox.Show("You cannot input a timer and specific starting time at the same time.");
+                MessageBox.Show("You must input your username.");
             }
-            else if ( startTime.Equals("") && timer.Equals("") )
-            {
-                MessageBox.Show("You need to input either a timer or a specific starting time.");
-            }
-            else if ( !timer.Equals("") )
-            {
-                t.Enabled = true;
-
-                if ( timer.Substring(timer.Length - 1).Equals("h") )
+            else {
+                if ( !(File.Exists(path)) )
                 {
-                    hours = Int32.Parse(timer.Substring(0, timer.Length - 2));
-                    minutes = 0;
-                    seconds = 0;
-                    t.Start();
+                    File.Create(path);
                 }
-                else if ( timer.Substring(timer.Length - 1).Equals("m") )
-                {
-                    minutes = Int32.Parse(timer.Substring(0, timer.Length - 2));
-                    hours = minutes / 60;
-                    minutes %= 60;
-                    seconds = 0;
-                    t.Start();
-                }
-                else {
-                    MessageBox.Show("Incorrect format. Make sure your timer is in the format 't (h/m)'");
-                }
-                
 
-            }
-            else if ( !startTime.Equals("") ) {
-                if ( startTime.Substring(startTime.Length - 2).Equals("PM") ) {
+
+                if ( !startTime.Equals("") && !timer.Equals("") )
+                {
+                    MessageBox.Show("You cannot input a timer and specific starting time at the same time.");
+                }
+                else if ( startTime.Equals("") && timer.Equals("") )
+                {
+                    MessageBox.Show("You need to input either a timer or a specific starting time.");
+                }
+                else if ( !timer.Equals("") )
+                {
+                    t.Enabled = true;
+
+                    if ( timer.Substring(timer.Length - 1).Equals("h") )
+                    {
+                        hours = Int32.Parse(timer.Substring(0, timer.Length - 2));
+                        minutes = 0;
+                        seconds = 0;
+                        t.Start();
+                    }
+                    else if ( timer.Substring(timer.Length - 1).Equals("m") )
+                    {
+                        minutes = Int32.Parse(timer.Substring(0, timer.Length - 2));
+                        hours = minutes / 60;
+                        minutes %= 60;
+                        seconds = 0;
+                        t.Start();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Incorrect format. Make sure your timer is in the format 't (h/m)'");
+                    }
+
+
+                }
+                else if ( !startTime.Equals("") )
+                {
+                    if ( startTime.Substring(startTime.Length - 2).Equals("PM") )
+                    {
+                        start = DateTime.Parse(currentTime.Date + " " + startTime + " AM");
+                    }
                     start = DateTime.Parse(currentTime.Date + " " + startTime + " AM");
-                }
-                start = DateTime.Parse(currentTime.Date + " " + startTime + " AM");
 
-                while ( start != currentTime ) {
-                    minutes = ( Int32.Parse(currentTime.ToShortTimeString().Substring(3, 2)) - Int32.Parse(start.ToShortTimeString().Substring(3, 2)) );
-                    hours = minutes / 60;
-                    minutes %= 60;
-                    seconds = 0;
-                    t.Start();
+                    while ( start != currentTime )
+                    {
+                        minutes = ( Int32.Parse(currentTime.ToShortTimeString().Substring(3, 2)) - Int32.Parse(start.ToShortTimeString().Substring(3, 2)) );
+                        hours = minutes / 60;
+                        minutes %= 60;
+                        seconds = 0;
+                        t.Start();
+
+                    }
 
                 }
-                
             }
 
 
@@ -147,6 +168,7 @@ namespace Stream_Countdown_Timer
             }
 
             timeLeft.Text = ( hourFormat + ":" + minuteFormat + ":" + secondFormat );
+            File.WriteAllText(path, timeLeft.Text);
             seconds--;
             if ( seconds < 0 )
             {
@@ -173,6 +195,17 @@ namespace Stream_Countdown_Timer
         {
             t.Stop();
             timeLeft.Text = "00:00:00";
+            File.WriteAllText(path, timeLeft.Text);
+        }
+
+        private void textBox1_TextChanged ( object sender, EventArgs e )
+        {
+
+        }
+
+        private void label1_Click_1 ( object sender, EventArgs e )
+        {
+
         }
     }
 }
