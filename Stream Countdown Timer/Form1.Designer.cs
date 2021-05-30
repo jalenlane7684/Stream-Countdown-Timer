@@ -94,29 +94,29 @@
             // SetTimerText
             // 
             this.SetTimerText.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SetTimerText.Location = new System.Drawing.Point(530, 291);
+            this.SetTimerText.Location = new System.Drawing.Point(521, 291);
             this.SetTimerText.Multiline = true;
             this.SetTimerText.Name = "SetTimerText";
-            this.SetTimerText.Size = new System.Drawing.Size(250, 50);
+            this.SetTimerText.Size = new System.Drawing.Size(280, 50);
             this.SetTimerText.TabIndex = 4;
             this.SetTimerText.TextChanged += new System.EventHandler(this.SetTimerText_TextChanged);
             // 
             // SetStartTimeText
             // 
             this.SetStartTimeText.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SetStartTimeText.Location = new System.Drawing.Point(530, 365);
+            this.SetStartTimeText.Location = new System.Drawing.Point(521, 365);
             this.SetStartTimeText.Multiline = true;
             this.SetStartTimeText.Name = "SetStartTimeText";
-            this.SetStartTimeText.Size = new System.Drawing.Size(250, 50);
+            this.SetStartTimeText.Size = new System.Drawing.Size(280, 50);
             this.SetStartTimeText.TabIndex = 5;
             this.SetStartTimeText.TextChanged += new System.EventHandler(this.SetStartTimeText_TextChanged);
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(530, 494);
+            this.button1.Location = new System.Drawing.Point(521, 494);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(250, 45);
+            this.button1.Size = new System.Drawing.Size(280, 45);
             this.button1.TabIndex = 6;
             this.button1.Text = "Start Timer";
             this.button1.UseVisualStyleBackColor = true;
@@ -127,11 +127,13 @@
             this.Instructions.AutoSize = true;
             this.Instructions.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Instructions.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.Instructions.Location = new System.Drawing.Point(464, 176);
+            this.Instructions.Location = new System.Drawing.Point(89, 155);
             this.Instructions.Name = "Instructions";
-            this.Instructions.Size = new System.Drawing.Size(374, 87);
+            this.Instructions.Size = new System.Drawing.Size(1128, 116);
             this.Instructions.TabIndex = 7;
-            this.Instructions.Text = "Formats\r\nTimer : t (h/m)\r\nSpecific Time: h:mm:ss AM/PM";
+            this.Instructions.Text = "Formats\r\nTimer : t (h/m)\r\nSpecific Time: hh:mm:ss (Military Time)\r\nNote: For spec" +
+    "ific time, type :today if the time is for the current date, and :tom if it\'s for" +
+    " tomorrow.";
             this.Instructions.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.Instructions.Click += new System.EventHandler(this.Instructions_Click);
             // 
@@ -167,9 +169,9 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(530, 545);
+            this.button2.Location = new System.Drawing.Point(521, 545);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(250, 45);
+            this.button2.Size = new System.Drawing.Size(280, 45);
             this.button2.TabIndex = 10;
             this.button2.Text = "Reset Timer";
             this.button2.UseVisualStyleBackColor = true;
@@ -178,10 +180,10 @@
             // userText
             // 
             this.userText.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.userText.Location = new System.Drawing.Point(530, 438);
+            this.userText.Location = new System.Drawing.Point(521, 438);
             this.userText.Multiline = true;
             this.userText.Name = "userText";
-            this.userText.Size = new System.Drawing.Size(250, 50);
+            this.userText.Size = new System.Drawing.Size(280, 50);
             this.userText.TabIndex = 11;
             this.userText.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 

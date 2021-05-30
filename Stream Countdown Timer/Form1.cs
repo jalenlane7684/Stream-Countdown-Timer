@@ -20,6 +20,7 @@ namespace Stream_Countdown_Timer
         int seconds;
         DateTime currentTime;
         DateTime start;
+        DateTime currentYear = DateTime.Now;
         String path;
 
         public StreamCountdownTimer ()
@@ -51,7 +52,6 @@ namespace Stream_Countdown_Timer
 
         private void button1_Click ( object sender, EventArgs e )
         {
-            currentTime = DateTime.Now;
             String timer = SetTimerText.Text;
             String startTime = SetStartTimeText.Text;
             path = "C:\\Users\\" + userText.Text + "\\Desktop\\StreamTimer.txt";
@@ -103,16 +103,52 @@ namespace Stream_Countdown_Timer
                 }
                 else if ( !startTime.Equals("") )
                 {
-                    
-
-                    while ( start != currentTime )
+                    if ( SetStartTimeText.Text.Length < 12 || !SetStartTimeText.Text.Contains(':') || SetStartTimeText.Text.Length > 14 )
                     {
-                        minutes = ( Int32.Parse(currentTime.ToShortTimeString().Substring(3, 2)) - Int32.Parse(start.ToShortTimeString().Substring(3, 2)) );
-                        hours = minutes / 60;
-                        minutes %= 60;
-                        seconds = 0;
-                        t.Start();
+                        MessageBox.Show("Incorrect format. Please make sure your format is the same as described above.");
+                    }
+                    else 
+                    {
+                        currentTime = DateTime.Now;
+                        String[] timeDigits = SetStartTimeText.Text.Split(':');
+                        if ( timeDigits.Length > 4 ) 
+                        {
+                            MessageBox.Show("Incorrect format. When trying to find each part of the time, there was an error.");
+                        } else
+                        {
+                            int startHour = Int32.Parse(timeDigits[0]);
+                            int startMinute = Int32.Parse(timeDigits[1]);
+                            int startSecond = Int32.Parse(timeDigits[2]);
+                            String when = timeDigits[3];
+                            start = new DateTime(currentYear.Year, currentYear.Month, currentYear.Day, startHour, startMinute, startSecond);
 
+                            if ( DateTime.Compare(currentTime, start) >= 0 && when.Equals("today"))
+                            {
+                                MessageBox.Show("You cannot input a time that is earlier than the current time.");
+                            } else
+                            {
+                                if ( when.Equals("tom") )
+                                {
+                                    hours = start.Hour - currentTime.Hour + 24;
+                                } else
+                                {
+                                    hours = start.Hour - currentTime.Hour;
+                                }
+                                minutes = start.Minute - currentTime.Minute;
+                                if (minutes < 0)
+                                {
+                                    hours--;
+                                    minutes = 59 + (start.Minute - currentTime.Minute);
+                                }
+                                seconds = start.Second - currentTime.Second;
+                                if ( seconds < 0 )
+                                {
+                                    minutes--;
+                                    seconds = 59 + ( start.Second - currentTime.Second );
+                                }
+                                t.Start();
+                            }
+                        }
                     }
 
                 }
@@ -189,9 +225,19 @@ namespace Stream_Countdown_Timer
 
         private void button2_Click ( object sender, EventArgs e )
         {
-            t.Stop();
-            timeLeft.Text = "00:00:00";
-            File.WriteAllText(path, timeLeft.Text);
+
+            if ( userText.Text.Equals("") )
+            {
+                MessageBox.Show("You must input your username.");
+            } else
+            {
+                path = "C:\\Users\\" + userText.Text + "\\Desktop\\StreamTimer.txt";
+                t.Stop();
+                timeLeft.Text = "00:00:00";
+                SetStartTimeText.Text = "";
+                SetTimerText.Text = "";
+                File.WriteAllText(path, timeLeft.Text);
+            }
         }
 
         private void textBox1_TextChanged ( object sender, EventArgs e )
