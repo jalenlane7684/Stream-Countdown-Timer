@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.Title = new System.Windows.Forms.Label();
             this.SetTimer = new System.Windows.Forms.Label();
-            this.Or = new System.Windows.Forms.Label();
             this.SetStartTime = new System.Windows.Forms.Label();
             this.SetTimerText = new System.Windows.Forms.TextBox();
             this.SetStartTimeText = new System.Windows.Forms.TextBox();
@@ -43,6 +42,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.userText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.userDescription = new System.Windows.Forms.Label();
+            this.howToUseBut = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Title
@@ -68,28 +69,16 @@
             this.SetTimer.Text = "Set Timer:";
             this.SetTimer.Click += new System.EventHandler(this.label1_Click);
             // 
-            // Or
-            // 
-            this.Or.AutoSize = true;
-            this.Or.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Or.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.Or.Location = new System.Drawing.Point(425, 328);
-            this.Or.Name = "Or";
-            this.Or.Size = new System.Drawing.Size(55, 37);
-            this.Or.TabIndex = 2;
-            this.Or.Text = "Or";
-            this.Or.Click += new System.EventHandler(this.label2_Click);
-            // 
             // SetStartTime
             // 
             this.SetStartTime.AutoSize = true;
             this.SetStartTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetStartTime.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.SetStartTime.Location = new System.Drawing.Point(270, 365);
+            this.SetStartTime.Location = new System.Drawing.Point(201, 365);
             this.SetStartTime.Name = "SetStartTime";
-            this.SetStartTime.Size = new System.Drawing.Size(245, 37);
+            this.SetStartTime.Size = new System.Drawing.Size(314, 37);
             this.SetStartTime.TabIndex = 3;
-            this.SetStartTime.Text = "Set Start Time:";
+            this.SetStartTime.Text = "Specific Start Time:";
             // 
             // SetTimerText
             // 
@@ -129,11 +118,8 @@
             this.Instructions.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.Instructions.Location = new System.Drawing.Point(89, 155);
             this.Instructions.Name = "Instructions";
-            this.Instructions.Size = new System.Drawing.Size(1128, 116);
+            this.Instructions.Size = new System.Drawing.Size(0, 29);
             this.Instructions.TabIndex = 7;
-            this.Instructions.Text = "Formats\r\nTimer : t (h/m)\r\nSpecific Time: hh:mm:ss (Military Time)\r\nNote: For spec" +
-    "ific time, type :today if the time is for the current date, and :tom if it\'s for" +
-    " tomorrow.";
             this.Instructions.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.Instructions.Click += new System.EventHandler(this.Instructions_Click);
             // 
@@ -199,13 +185,36 @@
             this.label1.Text = "Computer Username:";
             this.label1.Click += new System.EventHandler(this.label1_Click_1);
             // 
+            // userDescription
+            // 
+            this.userDescription.AutoSize = true;
+            this.userDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.userDescription.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.userDescription.Location = new System.Drawing.Point(862, 447);
+            this.userDescription.Name = "userDescription";
+            this.userDescription.Size = new System.Drawing.Size(0, 37);
+            this.userDescription.TabIndex = 13;
+            // 
+            // howToUseBut
+            // 
+            this.howToUseBut.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.howToUseBut.Location = new System.Drawing.Point(521, 226);
+            this.howToUseBut.Name = "howToUseBut";
+            this.howToUseBut.Size = new System.Drawing.Size(280, 45);
+            this.howToUseBut.TabIndex = 14;
+            this.howToUseBut.Text = "How do I use this?";
+            this.howToUseBut.UseVisualStyleBackColor = true;
+            this.howToUseBut.Click += new System.EventHandler(this.howToUseBut_Click);
+            // 
             // StreamCountdownTimer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.BackColor = System.Drawing.SystemColors.Highlight;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.howToUseBut);
+            this.Controls.Add(this.userDescription);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.userText);
             this.Controls.Add(this.button2);
@@ -216,7 +225,6 @@
             this.Controls.Add(this.SetStartTimeText);
             this.Controls.Add(this.SetTimerText);
             this.Controls.Add(this.SetStartTime);
-            this.Controls.Add(this.Or);
             this.Controls.Add(this.SetTimer);
             this.Controls.Add(this.Title);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -232,7 +240,6 @@
 
         private System.Windows.Forms.Label Title;
         private System.Windows.Forms.Label SetTimer;
-        private System.Windows.Forms.Label Or;
         private System.Windows.Forms.Label SetStartTime;
         private System.Windows.Forms.TextBox SetTimerText;
         private System.Windows.Forms.TextBox SetStartTimeText;
@@ -244,6 +251,8 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox userText;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label userDescription;
+        private System.Windows.Forms.Button howToUseBut;
     }
 }
 

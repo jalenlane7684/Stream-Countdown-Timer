@@ -93,6 +93,19 @@ namespace Stream_Countdown_Timer
                         minutes %= 60;
                         seconds = 0;
                         t.Start();
+                    } else if (timer.Contains(":"))
+                    {
+                        String[] timeNumbers = timer.Split(':');
+                        try
+                        {
+                            hours = Int32.Parse(timeNumbers[0]);
+                            minutes = Int32.Parse(timeNumbers[1]);
+                            seconds = Int32.Parse(timeNumbers[2]);
+                            t.Start();
+                        } catch
+                        {
+                            MessageBox.Show("Incorrect fomrat. Please make sure your timer is in the format 't (h/m)' or 'hh:mm:ss'");
+                        }
                     }
                     else
                     {
@@ -221,6 +234,11 @@ namespace Stream_Countdown_Timer
                 }
                 seconds = 59;
             }
+
+            if (hours == 0 && minutes == 0 && seconds == 0)
+            {
+                MessageBox.Show("Time is up!");
+            }
         }
 
         private void button2_Click ( object sender, EventArgs e )
@@ -249,5 +267,28 @@ namespace Stream_Countdown_Timer
         {
 
         }
+
+        private void howToUseBut_Click ( object sender, EventArgs e )
+        {
+            MessageBox.Show(howToString());
+        }
+
+        private String howToString()
+        {
+            StringBuilder howTo = new StringBuilder();
+            howTo.AppendLine("Set timer allows you to set a timer for when you want your stream to start.\nFormats:");
+            howTo.AppendLine("t(h / m) or hh:mm: ss\nt means time number (hours or minutes)\nh means hours, m means minutes, and s means seconds");
+            howTo.AppendLine("");
+            howTo.AppendLine("Specific time allows you to set a specific time you want the timer to go off.");
+            howTo.AppendLine("Format: hh:mm:ss\nMake sure you use military time\nAfter ss, type :today to set a time for the current date, and :tom for a time for the next day.");
+            howTo.AppendLine("\nYou cannot set a specific time for a time that has already passed (same day).");
+
+            return howTo.ToString();
+        }
     }
 }
+
+//Formats
+//Timer: t(h / m) or hh:mm: ss
+//Specific Time: hh: mm: ss(Military Time)
+//Note: For specific time, type: today if the time is for the current date, and :tom if it's for tomorrow.
