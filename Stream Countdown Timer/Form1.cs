@@ -97,6 +97,16 @@ namespace Stream_Countdown_Timer
                             hours = Int32.Parse(timeNumbers[0]);
                             minutes = Int32.Parse(timeNumbers[1]);
                             seconds = Int32.Parse(timeNumbers[2]);
+                            if (seconds >= 60)
+                            {
+                                minutes = seconds / 60;
+                                seconds %= 60;
+                            }
+                            if ( minutes >= 60 )
+                            {
+                                hours += minutes / 60;
+                                minutes %= 60;
+                            }
                             t.Start();
                             File.WriteAllText(path, timeLeft.Text);
 
