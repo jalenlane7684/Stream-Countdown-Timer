@@ -61,10 +61,6 @@ namespace Stream_Countdown_Timer
                 MessageBox.Show("You must input your username.");
             }
             else {
-                if ( !(File.Exists(path)) )
-                {
-                    File.Create(path);
-                }
 
 
                 if ( !startTime.Equals("") && !timer.Equals("") )
@@ -102,14 +98,17 @@ namespace Stream_Countdown_Timer
                             minutes = Int32.Parse(timeNumbers[1]);
                             seconds = Int32.Parse(timeNumbers[2]);
                             t.Start();
+                            File.WriteAllText(path, timeLeft.Text);
+
+
                         } catch
                         {
-                            MessageBox.Show("Incorrect fomrat. Please make sure your timer is in the format 't (h/m)' or 'hh:mm:ss'");
+                            MessageBox.Show("Incorrect format. Please make sure your timer is in the format 't (h/m)' or 'hh:mm:ss'");
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Incorrect format. Make sure your timer is in the format 't (h/m)'");
+                        MessageBox.Show("Incorrect format. Make sure your timer is in the format 't (h/m)' or 'hh:mm:ss'");
                     }
 
 
@@ -186,6 +185,11 @@ namespace Stream_Countdown_Timer
             String minuteFormat = "";
             String secondFormat = "";
 
+            if ( hours == 0 && minutes == 0 && seconds == 0 )
+            {
+                t.Stop();
+            }
+
             if ( hours < 10 )
             {
                 hourFormat = "0" + hours;
@@ -213,7 +217,7 @@ namespace Stream_Countdown_Timer
             }
 
             timeLeft.Text = ( hourFormat + ":" + minuteFormat + ":" + secondFormat );
-            File.WriteAllText(path, timeLeft.Text);
+            
             seconds--;
             if ( seconds < 0 )
             {
@@ -235,10 +239,7 @@ namespace Stream_Countdown_Timer
                 seconds = 59;
             }
 
-            if (hours == 0 && minutes == 0 && seconds == 0)
-            {
-                MessageBox.Show("Time is up!");
-            }
+            File.WriteAllText(path, timeLeft.Text);
         }
 
         private void button2_Click ( object sender, EventArgs e )
@@ -250,11 +251,9 @@ namespace Stream_Countdown_Timer
             } else
             {
                 path = "C:\\Users\\" + userText.Text + "\\Desktop\\StreamTimer.txt";
-                t.Stop();
-                timeLeft.Text = "00:00:00";
-                SetStartTimeText.Text = "";
-                SetTimerText.Text = "";
-                File.WriteAllText(path, timeLeft.Text);
+                hours = 0;
+                minutes = 0;
+                seconds = 0;
             }
         }
 
@@ -282,6 +281,8 @@ namespace Stream_Countdown_Timer
             howTo.AppendLine("Specific time allows you to set a specific time you want the timer to go off.");
             howTo.AppendLine("Format: hh:mm:ss\nMake sure you use military time\nAfter ss, type :today to set a time for the current date, and :tom for a time for the next day.");
             howTo.AppendLine("\nYou cannot set a specific time for a time that has already passed (same day).");
+            howTo.AppendLine("\nAdditionally, the application needs your computer username so that it can create a text file on your desktop that will be updated with the timer.");
+            howTo.AppendLine("Add the text file onto your OBS or Streamlabs stream scene, and the text will update with the timer.");
 
             return howTo.ToString();
         }
