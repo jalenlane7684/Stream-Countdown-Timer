@@ -75,16 +75,30 @@ namespace Stream_Countdown_Timer
                 {
                     t.Enabled = true;
 
-                    if ( timer.Substring(timer.Length - 1).Equals("h") )
+                    if ( timer.Contains("h") )
                     {
-                        hours = Int32.Parse(timer.Substring(0, timer.Length - 2));
+                        
+                        if (timer.Contains(" "))
+                        {
+                            hours = Int32.Parse(timer.Substring(0, timer.IndexOf(" ")));
+                        } else
+                        {
+                            hours = Int32.Parse(timer.Substring(0, timer.IndexOf("h")));
+                        }
                         minutes = 0;
                         seconds = 0;
                         t.Start();
                     }
-                    else if ( timer.Substring(timer.Length - 1).Equals("m") )
+                    else if ( timer.Contains("m") )
                     {
-                        minutes = Int32.Parse(timer.Substring(0, timer.Length - 2));
+                        if ( timer.Contains(" ") )
+                        {
+                            minutes = Int32.Parse(timer.Substring(0, timer.IndexOf(" ")));
+                        }
+                        else
+                        {
+                            minutes = Int32.Parse(timer.Substring(0, timer.IndexOf("m")));
+                        }
                         hours = minutes / 60;
                         minutes %= 60;
                         seconds = 0;
@@ -97,15 +111,16 @@ namespace Stream_Countdown_Timer
                             hours = Int32.Parse(timeNumbers[0]);
                             minutes = Int32.Parse(timeNumbers[1]);
                             seconds = Int32.Parse(timeNumbers[2]);
-                            if (seconds >= 60)
-                            {
-                                minutes = seconds / 60;
-                                seconds %= 60;
-                            }
                             if ( minutes >= 60 )
                             {
-                                hours += minutes / 60;
+                                hours += (minutes / 60);
                                 minutes %= 60;
+                            }
+                            
+                            if (seconds >= 60)
+                            {
+                                minutes += seconds / 60;
+                                seconds %= 60;
                             }
                             t.Start();
                             File.WriteAllText(path, timeLeft.Text);
@@ -285,14 +300,18 @@ namespace Stream_Countdown_Timer
         private String howToString()
         {
             StringBuilder howTo = new StringBuilder();
-            howTo.AppendLine("Set timer allows you to set a timer for when you want your stream to start.\nFormats:");
-            howTo.AppendLine("t(h / m) or hh:mm: ss\nt means time number (hours or minutes)\nh means hours, m means minutes, and s means seconds");
-            howTo.AppendLine("");
-            howTo.AppendLine("Specific time allows you to set a specific time you want the timer to go off.");
-            howTo.AppendLine("Format: hh:mm:ss\nMake sure you use military time\nAfter ss, type :today to set a time for the current date, and :tom for a time for the next day.");
-            howTo.AppendLine("\nYou cannot set a specific time for a time that has already passed (same day).");
-            howTo.AppendLine("\nAdditionally, the application needs your computer username so that it can create a text file on your desktop that will be updated with the timer.");
-            howTo.AppendLine("Add the text file onto your OBS or Streamlabs stream scene, and the text will update with the timer.");
+            howTo.AppendLine("Set timer allows you to set a timer for when you want your stream to start.");
+            howTo.AppendLine("\nFormats:\nt(h / m) or hh:mm: ss\nt means time number (hours or minutes)\nh means hours, m means minutes, and s means seconds");
+            howTo.AppendLine("For example, if you wanted to set your stream timer to end 30 minutes, you would input '30 m', or '00:30:00'.");
+
+            howTo.AppendLine("Specific time allows you to set a specific time you want the timer to end.");
+            howTo.AppendLine("Format: hh:mmss\nAfter typing the seconds, type ':today' to set a time for the current date, and ':tom' for a time for the next day.");
+            howTo.AppendLine("The hour format for a specific time is in military time. If you are inputting a PM time, just add 12 to the hours.");
+            howTo.AppendLine("For example, if you wanted to set the timer to end at 6:00 PM, you would input '18:00:00:today'");
+            howTo.AppendLine("If you set the stream to start the current date, you cannot set it to a time that has already passed.");
+            howTo.AppendLine("\nWhy does this program need your username?");
+            howTo.AppendLine("It uses it to complete a path to get to your desktop. Here, it will create a text file that is updated by this application.");
+            howTo.AppendLine("In order to add the timer to your stream, simply add the text file as a text source, and it will update automatically with the timer.");
 
             return howTo.ToString();
         }
