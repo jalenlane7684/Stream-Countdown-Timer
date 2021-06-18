@@ -85,9 +85,22 @@ namespace Stream_Countdown_Timer
                         {
                             hours = Int32.Parse(timer.Substring(0, timer.IndexOf("h")));
                         }
-                        minutes = 0;
-                        seconds = 0;
-                        t.Start();
+                        if ( hours < 0 )
+                        {
+                            t.Enabled = false;
+                            MessageBox.Show("You cannot input a negative time.");
+                            hours = 0;
+                            minutes = 0;
+                            seconds = 0;
+                            return;
+                        }
+                        else
+                        {
+                            minutes = 0;
+                            seconds = 0;
+                            t.Start();
+                        }
+                        
                     }
                     else if ( timer.Contains("m") )
                     {
@@ -99,10 +112,22 @@ namespace Stream_Countdown_Timer
                         {
                             minutes = Int32.Parse(timer.Substring(0, timer.IndexOf("m")));
                         }
-                        hours = minutes / 60;
-                        minutes %= 60;
-                        seconds = 0;
-                        t.Start();
+                        if (minutes < 0 )
+                        {
+                            t.Enabled = false;
+                            MessageBox.Show("You cannot input a negative time.");
+                            hours = 0;
+                            minutes = 0;
+                            seconds = 0;
+                            return;
+                        }
+                        else
+                        {
+                            hours = minutes / 60;
+                            minutes %= 60;
+                            seconds = 0;
+                            t.Start();
+                        }
                     } else if (timer.Contains(":"))
                     {
                         String[] timeNumbers = timer.Split(':');
@@ -111,19 +136,25 @@ namespace Stream_Countdown_Timer
                             hours = Int32.Parse(timeNumbers[0]);
                             minutes = Int32.Parse(timeNumbers[1]);
                             seconds = Int32.Parse(timeNumbers[2]);
-                            if ( minutes >= 60 )
+                            if (hours < 0 || minutes < 0 || seconds < 0)
                             {
-                                hours += (minutes / 60);
-                                minutes %= 60;
-                            }
-                            
-                            if (seconds >= 60)
+                                MessageBox.Show("You cannot input a negative time.");
+                            } else
                             {
-                                minutes += seconds / 60;
-                                seconds %= 60;
+                                if ( minutes >= 60 )
+                                {
+                                    hours += ( minutes / 60 );
+                                    minutes %= 60;
+                                }
+
+                                if ( seconds >= 60 )
+                                {
+                                    minutes += seconds / 60;
+                                    seconds %= 60;
+                                }
+                                t.Start();
+                                
                             }
-                            t.Start();
-                            File.WriteAllText(path, timeLeft.Text);
 
 
                         } catch
@@ -264,7 +295,20 @@ namespace Stream_Countdown_Timer
                 seconds = 59;
             }
 
-            File.WriteAllText(path, timeLeft.Text);
+            try
+            {
+                File.WriteAllText(path, timeLeft.Text);
+            }
+            catch
+            {
+                hourFormat = "00";
+                minuteFormat = "00";
+                secondFormat = "00";
+
+                timeLeft.Text = ( hourFormat + ":" + minuteFormat + ":" + secondFormat );
+                t.Enabled = false;
+                MessageBox.Show("Your username does not exist.");
+            }
         }
 
         private void button2_Click ( object sender, EventArgs e )
@@ -301,7 +345,7 @@ namespace Stream_Countdown_Timer
         {
             StringBuilder howTo = new StringBuilder();
             howTo.AppendLine("Set timer allows you to set a timer for when you want your stream to start.");
-            howTo.AppendLine("\nFormats:\nt(h / m) or hh:mm: ss\nt means time number (hours or minutes)\nh means hours, m means minutes, and s means seconds");
+            howTo.AppendLine("\nFormats:\n't h' for hours, 't m' for minutes, or 'hh:mm:ss'\nt means time (in hours or minutes)\nh means hours, m means minutes, and s means seconds");
             howTo.AppendLine("For example, if you wanted to set your stream timer to end 30 minutes, you would input '30 m', or '00:30:00'.");
 
             howTo.AppendLine("Specific time allows you to set a specific time you want the timer to end.");
@@ -309,6 +353,7 @@ namespace Stream_Countdown_Timer
             howTo.AppendLine("The hour format for a specific time is in military time. If you are inputting a PM time, just add 12 to the hours.");
             howTo.AppendLine("For example, if you wanted to set the timer to end at 6:00 PM, you would input '18:00:00:today'");
             howTo.AppendLine("If you set the stream to start the current date, you cannot set it to a time that has already passed.");
+
             howTo.AppendLine("\nWhy does this program need your username?");
             howTo.AppendLine("It uses it to complete a path to get to your desktop. Here, it will create a text file that is updated by this application.");
             howTo.AppendLine("In order to add the timer to your stream, simply add the text file as a text source, and it will update automatically with the timer.");
