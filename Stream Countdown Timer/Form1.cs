@@ -23,69 +23,71 @@ namespace Stream_Countdown_Timer
         DateTime currentYear = DateTime.Now;
         String path;
 
-        public StreamCountdownTimer ()
+        public StreamCountdownTimer()
         {
             InitializeComponent();
             t.Enabled = false;
 
         }
 
-        private void label1_Click ( object sender, EventArgs e )
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void label2_Click ( object sender, EventArgs e )
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void SetTimerText_TextChanged ( object sender, EventArgs e )
+        private void SetTimerText_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void SetStartTimeText_TextChanged ( object sender, EventArgs e )
+        private void SetStartTimeText_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void button1_Click ( object sender, EventArgs e )
+        private void button1_Click(object sender, EventArgs e)
         {
             String timer = SetTimerText.Text;
             String startTime = SetStartTimeText.Text;
             path = "C:\\Users\\" + userText.Text + "\\Desktop\\StreamTimer.txt";
 
-            if ( userText.Text.Equals("") )
+            if (userText.Text.Equals(""))
             {
                 MessageBox.Show("You must input your username.");
             }
-            else {
+            else
+            {
 
 
-                if ( !startTime.Equals("") && !timer.Equals("") )
+                if (!startTime.Equals("") && !timer.Equals(""))
                 {
                     MessageBox.Show("You cannot input a timer and specific starting time at the same time.");
                 }
-                else if ( startTime.Equals("") && timer.Equals("") )
+                else if (startTime.Equals("") && timer.Equals(""))
                 {
                     MessageBox.Show("You need to input either a timer or a specific starting time.");
                 }
-                else if ( !timer.Equals("") )
+                else if (!timer.Equals(""))
                 {
                     t.Enabled = true;
 
-                    if ( timer.Contains("h") )
+                    if (timer.Contains("h"))
                     {
-                        
+
                         if (timer.Contains(" "))
                         {
                             hours = Int32.Parse(timer.Substring(0, timer.IndexOf(" ")));
-                        } else
+                        }
+                        else
                         {
                             hours = Int32.Parse(timer.Substring(0, timer.IndexOf("h")));
                         }
-                        if ( hours < 0 )
+                        if (hours < 0)
                         {
                             t.Enabled = false;
                             MessageBox.Show("You cannot input a negative time.");
@@ -100,11 +102,11 @@ namespace Stream_Countdown_Timer
                             seconds = 0;
                             t.Start();
                         }
-                        
+
                     }
-                    else if ( timer.Contains("m") )
+                    else if (timer.Contains("m"))
                     {
-                        if ( timer.Contains(" ") )
+                        if (timer.Contains(" "))
                         {
                             minutes = Int32.Parse(timer.Substring(0, timer.IndexOf(" ")));
                         }
@@ -112,7 +114,7 @@ namespace Stream_Countdown_Timer
                         {
                             minutes = Int32.Parse(timer.Substring(0, timer.IndexOf("m")));
                         }
-                        if (minutes < 0 )
+                        if (minutes < 0)
                         {
                             t.Enabled = false;
                             MessageBox.Show("You cannot input a negative time.");
@@ -128,7 +130,8 @@ namespace Stream_Countdown_Timer
                             seconds = 0;
                             t.Start();
                         }
-                    } else if (timer.Contains(":"))
+                    }
+                    else if (timer.Contains(":"))
                     {
                         String[] timeNumbers = timer.Split(':');
                         try
@@ -139,25 +142,27 @@ namespace Stream_Countdown_Timer
                             if (hours < 0 || minutes < 0 || seconds < 0)
                             {
                                 MessageBox.Show("You cannot input a negative time.");
-                            } else
+                            }
+                            else
                             {
-                                if ( minutes >= 60 )
+                                if (minutes >= 60)
                                 {
-                                    hours += ( minutes / 60 );
+                                    hours += (minutes / 60);
                                     minutes %= 60;
                                 }
 
-                                if ( seconds >= 60 )
+                                if (seconds >= 60)
                                 {
                                     minutes += seconds / 60;
                                     seconds %= 60;
                                 }
                                 t.Start();
-                                
+
                             }
 
 
-                        } catch
+                        }
+                        catch
                         {
                             MessageBox.Show("Incorrect format. Please make sure your timer is in the format 't (h/m)' or 'hh:mm:ss'");
                         }
@@ -169,20 +174,21 @@ namespace Stream_Countdown_Timer
 
 
                 }
-                else if ( !startTime.Equals("") )
+                else if (!startTime.Equals(""))
                 {
-                    if ( SetStartTimeText.Text.Length < 12 || !SetStartTimeText.Text.Contains(':') || SetStartTimeText.Text.Length > 14 )
+                    if (SetStartTimeText.Text.Length < 12 || !SetStartTimeText.Text.Contains(':') || SetStartTimeText.Text.Length > 14)
                     {
                         MessageBox.Show("Incorrect format. Please make sure your format is the same as described above.");
                     }
-                    else 
+                    else
                     {
                         currentTime = DateTime.Now;
                         String[] timeDigits = SetStartTimeText.Text.Split(':');
-                        if ( timeDigits.Length > 4 ) 
+                        if (timeDigits.Length > 4)
                         {
                             MessageBox.Show("Incorrect format. When trying to find each part of the time, there was an error.");
-                        } else
+                        }
+                        else
                         {
                             int startHour = Int32.Parse(timeDigits[0]);
                             int startMinute = Int32.Parse(timeDigits[1]);
@@ -190,15 +196,17 @@ namespace Stream_Countdown_Timer
                             String when = timeDigits[3];
                             start = new DateTime(currentYear.Year, currentYear.Month, currentYear.Day, startHour, startMinute, startSecond);
 
-                            if ( DateTime.Compare(currentTime, start) >= 0 && when.Equals("today"))
+                            if (DateTime.Compare(currentTime, start) >= 0 && when.Equals("today"))
                             {
                                 MessageBox.Show("You cannot input a time that is earlier than the current time.");
-                            } else
+                            }
+                            else
                             {
-                                if ( when.Equals("tom") )
+                                if (when.Equals("tom"))
                                 {
                                     hours = start.Hour - currentTime.Hour + 24;
-                                } else
+                                }
+                                else
                                 {
                                     hours = start.Hour - currentTime.Hour;
                                 }
@@ -209,10 +217,10 @@ namespace Stream_Countdown_Timer
                                     minutes = 59 + (start.Minute - currentTime.Minute);
                                 }
                                 seconds = start.Second - currentTime.Second;
-                                if ( seconds < 0 )
+                                if (seconds < 0)
                                 {
                                     minutes--;
-                                    seconds = 59 + ( start.Second - currentTime.Second );
+                                    seconds = 59 + (start.Second - currentTime.Second);
                                 }
                                 t.Start();
                             }
@@ -225,36 +233,37 @@ namespace Stream_Countdown_Timer
 
         }
 
-        private void Instructions_Click ( object sender, EventArgs e )
+        private void Instructions_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void label2_Click_1 ( object sender, EventArgs e )
+        private void label2_Click_1(object sender, EventArgs e)
         {
 
         }
 
-        private void timer_Tick ( object sender, EventArgs e )
+        private void timer_Tick(object sender, EventArgs e)
         {
             String hourFormat = "";
             String minuteFormat = "";
             String secondFormat = "";
 
-            if ( hours == 0 && minutes == 0 && seconds == 0 )
+            if (hours == 0 && minutes == 0 && seconds == 0)
             {
                 t.Stop();
             }
 
-            if ( hours < 10 )
+            if (hours < 10)
             {
                 hourFormat = "0" + hours;
             }
-            else {
+            else
+            {
                 hourFormat = hours.ToString();
             }
 
-            if ( minutes < 10 )
+            if (minutes < 10)
             {
                 minuteFormat = "0" + minutes;
             }
@@ -263,7 +272,7 @@ namespace Stream_Countdown_Timer
                 minuteFormat = minutes.ToString();
             }
 
-            if ( seconds < 10 )
+            if (seconds < 10)
             {
                 secondFormat = "0" + seconds;
             }
@@ -272,18 +281,19 @@ namespace Stream_Countdown_Timer
                 secondFormat = seconds.ToString();
             }
 
-            timeLeft.Text = ( hourFormat + ":" + minuteFormat + ":" + secondFormat );
-            
+            timeLeft.Text = (hourFormat + ":" + minuteFormat + ":" + secondFormat);
+
             seconds--;
-            if ( seconds < 0 )
+            if (seconds < 0)
             {
-                if ( minutes == 0 )
+                if (minutes == 0)
                 {
-                    if ( hours == 0 )
+                    if (hours == 0)
                     {
                         t.Stop();
                     }
-                    else {
+                    else
+                    {
                         hours--;
                         minutes = 59;
                     }
@@ -305,19 +315,20 @@ namespace Stream_Countdown_Timer
                 minuteFormat = "00";
                 secondFormat = "00";
 
-                timeLeft.Text = ( hourFormat + ":" + minuteFormat + ":" + secondFormat );
+                timeLeft.Text = (hourFormat + ":" + minuteFormat + ":" + secondFormat);
                 t.Enabled = false;
                 MessageBox.Show("Your username does not exist.");
             }
         }
 
-        private void button2_Click ( object sender, EventArgs e )
+        private void button2_Click(object sender, EventArgs e)
         {
 
-            if ( userText.Text.Equals("") )
+            if (userText.Text.Equals(""))
             {
                 MessageBox.Show("You must input your username.");
-            } else
+            }
+            else
             {
                 path = "C:\\Users\\" + userText.Text + "\\Desktop\\StreamTimer.txt";
                 hours = 0;
@@ -326,17 +337,17 @@ namespace Stream_Countdown_Timer
             }
         }
 
-        private void textBox1_TextChanged ( object sender, EventArgs e )
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void label1_Click_1 ( object sender, EventArgs e )
+        private void label1_Click_1(object sender, EventArgs e)
         {
 
         }
 
-        private void howToUseBut_Click ( object sender, EventArgs e )
+        private void howToUseBut_Click(object sender, EventArgs e)
         {
             MessageBox.Show(howToString());
         }
